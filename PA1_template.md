@@ -7,7 +7,7 @@ title: 'Reproducible Research: Peer Assessment 1'
 
 ```r
 unzip( "activity.zip", exdir=getwd())
-activity_df <-read.csv("activity.csv")
+activity_df <-read.csv("activity.csv" ,stringsAsFactors=FALSE )
 ```
 
 **What is the mean total number of steps taken per day?**
@@ -22,6 +22,7 @@ hist( totsteps$x,labels=TRUE, xlab="Daily Steps",main="Total number of steps tak
 ```
 
 ![](PA1_template_files/figure-html/unnamed-chunk-2-1.png) 
+
 Calculate and report the mean and median total number of steps taken per day
 
 ```r
@@ -39,9 +40,11 @@ mean(totsteps$x)
 ```
 ## [1] 10766.19
 ```
+
 **What is the average daily activity pattern?**
 
 Make a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)
+
 
 ```r
 totsteps <- aggregate(steps_df$steps, list(interval = steps_df$interval), median)
@@ -55,6 +58,7 @@ meansteps <- mean(totsteps$x )
 ```
 
 Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
+
 
 ```r
 totsteps[totsteps$x == max(totsteps$x),1]
@@ -80,6 +84,7 @@ The stratergy for replacing missing values will include first replacing the miss
  
  Calculate the mean number of steps taken each day
 
+
 ```r
 activity_df <-read.csv("activity.csv",stringsAsFactors=FALSE ) 
 b <- read.csv("activity.csv",stringsAsFactors=FALSE ) 
@@ -94,6 +99,7 @@ hist( totsteps$x,labels=TRUE, xlab="Daily Steps",main="Total number of steps tak
 ![](PA1_template_files/figure-html/unnamed-chunk-7-1.png) 
 
 Calculate and report the mean and median total number of steps taken per day for imputed data
+
 
 ```r
 median(totsteps$x)

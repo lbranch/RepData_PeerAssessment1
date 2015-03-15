@@ -11,7 +11,7 @@ title: 'Reproducible Research: Peer Assessment 1'
 **Loading and preprocessing the data**  
 ```{r, echo=TRUE}
 unzip( "activity.zip", exdir=getwd())
-activity_df <-read.csv("activity.csv")
+activity_df <-read.csv("activity.csv" ,stringsAsFactors=FALSE )
 ```
 
 **What is the mean total number of steps taken per day?**
@@ -23,6 +23,7 @@ steps_df <- subset(activity_df,activity_df$steps != "NA")
 totsteps <- aggregate(steps_df$steps, list(date = steps_df$date), sum)
 hist( totsteps$x,labels=TRUE, xlab="Daily Steps",main="Total number of steps taken each day"  )
 ```
+
 Calculate and report the mean and median total number of steps taken per day
 ```{r, echo=TRUE} 
 
@@ -30,9 +31,11 @@ median(totsteps$x)
 mean(totsteps$x)
   
 ```
+
 **What is the average daily activity pattern?**
 
 Make a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)
+
 ```{r,echo=TRUE}
 totsteps <- aggregate(steps_df$steps, list(interval = steps_df$interval), median)
 plot(totsteps$x~ totsteps$interval,type="l",main="Average number of steps taken (averaged across all days)",ylab="Steps",xlab="Interval" )
@@ -40,6 +43,7 @@ meansteps <- mean(totsteps$x )
 ```
 
 Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
+
 ```{r,echo=TRUE}
 totsteps[totsteps$x == max(totsteps$x),1]
  
@@ -55,6 +59,7 @@ The stratergy for replacing missing values will include first replacing the miss
  ```  
  
  Calculate the mean number of steps taken each day
+
 ```{r, echo=TRUE}
 activity_df <-read.csv("activity.csv",stringsAsFactors=FALSE ) 
 b <- read.csv("activity.csv",stringsAsFactors=FALSE ) 
@@ -67,6 +72,7 @@ hist( totsteps$x,labels=TRUE, xlab="Daily Steps",main="Total number of steps tak
 ``` 
 
 Calculate and report the mean and median total number of steps taken per day for imputed data
+
 ```{r, echo=TRUE} 
 
 median(totsteps$x)
